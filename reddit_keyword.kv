@@ -1,0 +1,324 @@
+WindowManager:
+	MainWindow:
+	SecondWindow:
+
+<MainWindow>
+	name: "main"
+
+
+	url: url
+	keyword: keyword
+	refcount: refcount
+	subtitle: subtitle 
+	keyword_used: keyword_used
+	comment_amount: comment_amount
+	reload_limit: reload_limit
+	reload_limit_input: reload_limit_input
+	progress_bar: progress_bar
+
+	GridLayout:
+		cols: 1
+		size: root.width - 25, root.height - 25
+		padding: 10, 10
+		
+		Label:
+			text: "Reddit Keyword Counter"
+			color: 0, 0, 0, 1
+			size_hint_y: .15
+			font_size: 20
+			canvas.before:
+                Color:
+                    rgba: 360, 100, 100, .85
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+
+		GridLayout:
+			cols: 3
+			spacing: 5
+			padding: 10, 10
+			canvas.before:
+                Color:
+                    rgba: 360, 100, 100, .85
+
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+
+            Button: 
+				text: 'Instructions'
+				size_hint_x: None 
+				width: 200
+				on_release: 
+					app.root.current =  "second"
+					root.manager.transition.direction = 'left'
+			Label: 
+				text: "Reddit Url:"
+				halign: 'center'
+				text_size: self.size
+				color: 0, 0, 0, 1
+				size_hint: (.25, .25)
+
+    		
+			TextInput:
+				id: url
+				multinline:False
+				size_hint: (.2, .2)
+
+			Button: 
+				text: 'r/WallStreatBets'
+				size_hint_x: None 
+				width: 200
+				on_release: root.call_wallstreetbets() 
+				
+
+			Label:
+				text: "Keyword:"
+				halign: 'center'
+				text_size: self.size
+				color: 0, 0, 0, 1
+				size_hint: (.25, .25)
+
+			TextInput:
+				id: keyword 
+				multiline: False
+				size_hint: (.25, .25)
+
+			Button: 
+				text: 'r/worldnews'
+				size_hint_x: None 
+				width: 200
+				on_release: root.call_worldnews()
+			
+			Label:
+				text: "Reload Limit: "
+				halign: 'center'
+				text_size: self.size
+				color: 0, 0, 0, 1
+				size_hint: (.25, .25)
+
+			TextInput:
+				id: reload_limit
+				multiline: False
+				size_hint: (.25, .25)
+
+			Button: 
+				text: 'r/politics'
+				size_hint_x: None 
+				width: 200
+				on_release: root.call_politics()
+
+			Label:
+				text: "Submission Title: "
+				halign: 'center'
+				text_size: self.size
+				color: 0, 0, 0, 1
+				size_hint: (.25, .25)
+
+			Label:
+				id: subtitle
+				color: 0, 0, 0, 1
+				text_size: self.size
+				text: ""
+				size_hint: (.25, .25)
+		
+
+			Label: 
+				text: ''
+				size_hint_x: None 
+				width: 200
+
+			Label:
+				text: "Reload Limit: "
+				halign: 'center'
+				text_size: self.size
+				color: 0, 0, 0, 1
+				size_hint: (.25, .25)
+
+			Label:
+				id: reload_limit_input
+				color: 0, 0, 0, 1
+				text: ""
+				size_hint: (.25, .25)
+
+			Label: 
+				text: ''
+				size_hint_x: None 
+				width: 200
+	
+
+			Label:
+				text: "Keyword: "
+				halign: 'center'
+				text_size: self.size
+				color: 0, 0, 0, 1
+				size_hint: (.25, .25)
+
+			Label:
+				id: keyword_used
+				color: 0, 0, 0, 1
+				text: ""
+				size_hint: (.25, .25)
+
+			Label:				
+				text: ''
+				size_hint_x: None 
+				width: 200
+
+			Label:
+				text: "Comments Scanned: "
+				halign: 'center'
+				text_size: self.size
+				color: 0, 0, 0, 1
+				size_hint: (.25, .25)
+
+			Label:
+				id: comment_amount
+				color: 0, 0, 0, 1
+				text: ""
+				size_hint: (.25, .25)
+
+			Button: 
+				text: 'Search Entry'
+				size_hint_x: None 
+				width: 200
+				on_release: root.btn()
+
+			Label:
+				text: "Keyword Reference Count: "
+				text_size: self.size
+				halign: 'center'
+				color: 0, 0, 0, 1
+				size_hint: (.25, .25)
+
+			Label:
+				id: refcount
+				color: 0, 0, 0, 1
+				text: ""
+				size_hint: (.25, .25)
+
+			Label:
+				text:''
+				size_hint_x: None 
+				width: 100
+
+
+			Label:
+				text:''
+				size_hint: (.25, .25)
+
+			Label:
+				text:''
+				size_hint: (.25, .25)
+
+		GridLayout:
+			cols: 3
+			size_hint_y: .1
+			canvas.before:
+                Color:
+                    rgba: 360, 100, 100, .85
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+			Label:
+				text:'0%'
+				color: 0, 0, 0, 1
+				font_size: 20
+				size_hint: (None, .2)
+				width: 100
+
+			ProgressBar:
+				id: progress_bar
+				value: 0
+				min: 0 
+				max: 100
+				size_hint:(.2, .2)
+			
+		
+	        Label:
+				text:'100%'
+				color: 0, 0, 0, 1
+				font_size: 20
+				size_hint: (None, .2)
+				width: 100
+
+<SecondWindow>:
+	name: 'second'
+
+	canvas.before:
+        Color:
+			rgba: 0, 0, 0, 1
+		Rectangle:
+            pos: self.pos
+            size: self.size
+
+    GridLayout:
+    	cols: 1 
+    	size_hint: (.5, .5)
+		pos_hint: {'x': .25, 'y': .25} 
+		canvas.before:
+        	Color:
+				rgba: 360, 100, 100, 1
+			Rectangle:
+            	pos: self.pos
+            	size: self.size
+		
+		Label: 
+        	text:'Welcome to The Reddit Keyword Searcher!'
+        	color: 0, 0, 0, 1
+        	size_hint: 0.6, 0.2
+        	pos_hint: {"x":0.2, "top":1} 
+
+		Label:
+			text: 'Instructions'
+			color: 0, 0, 0, 1
+			size_hint: 0.6, .2
+			pos_hint: {"x":0.2, "top":.9}
+
+		Label:
+			text: 'Step 1: Enter Reddit post URL'
+			color: 0, 0, 0, 1
+			halign: 'left'
+			font_size: 13
+			size_hint: 0.6, .2
+			pos_hint: {"x":0.2, "top":.8}
+
+		Label:
+			text: 'Step 2: Enter the keyword you would like to search for'
+			color: 0, 0, 0, 1
+			halign: 'left'
+			font_size: 13
+			size_hint: 0.6, .2
+			pos_hint: {"x":0.2, "top":.75}
+
+		Label:
+			text: 'Step 3: Enter reload comments option'
+			color: 0, 0, 0, 1
+			halign: 'left'
+			font_size: 13
+			size_hint: 0.6, .2
+			pos_hint: {"x":0.2, "top":.7}
+
+		Label:
+			text: 'Note: reload comments represent the \n"Load More Comments" option in Reddit thread'
+			color: 0, 0, 0, 1
+			halign: 'left'
+			font_size: 13
+			size_hint: 0.6, .2
+			pos_hint: {"x":0.2, "top":.5}
+		
+    	Button:
+    		id: close_popup
+        	text: 'Exit'
+        	# set size of the button 
+        	size_hint: .5, 0.1
+        	# set position of the button   
+        	pos_hint: {"x":0, "y":0.1} 
+        	on_release:
+        		app.root.current = 'main'
+        		root.manager.transition.direction = 'right'
+
+<p>:
+
+
+	
